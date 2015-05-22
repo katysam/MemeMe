@@ -15,7 +15,6 @@ class MemeTableViewController: UITableViewController, UITableViewDataSource, UIT
     // This is an array of Meme instances
     var allMemes: [Meme]?
     
-    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
         
@@ -25,6 +24,8 @@ class MemeTableViewController: UITableViewController, UITableViewDataSource, UIT
         allMemes = appDelegate.memes
 
     }
+    
+    func reloadData() {}
     
     
     // MARK: Table View Data Source
@@ -47,17 +48,17 @@ class MemeTableViewController: UITableViewController, UITableViewDataSource, UIT
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+                
+        // Get the new ViewController
+        var controller: MemeDetailView
+        controller = self.storyboard!.instantiateViewControllerWithIdentifier("MemeDetail") as! MemeDetailView
         
-        let detailController = self.storyboard!.instantiateViewControllerWithIdentifier("MemeDetail") as! MemeDetailView
-        detailController.meme = self.allMemes?[indexPath.row]
-        self.presentViewController(detailController, animated: true, completion: nil)
+        // Pass the Meme to the new controller
+        controller.meme = self.allMemes?[indexPath.row]
         
-        
-//        let detailController = self.storyboard!.instantiateViewControllerWithIdentifier("MemeEditor") as! MemeEditor
-//        detailController.meme = self.allMemes?[indexPath.row]
-//        self.presentViewController(detailController, animated: true, completion: nil)
+        // Present the view Controller
+        self.navigationController!.pushViewController(controller, animated: true)
         
     }
-
     
 }

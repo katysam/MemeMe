@@ -69,6 +69,10 @@ UINavigationControllerDelegate {
             }
         }
         
+        if tabBarController != nil {
+            tabBarController?.tabBar.hidden = true
+        }
+        
         // retrieve the memes stored in AppDelegate
         let object = UIApplication.sharedApplication().delegate
         let appDelegate = object as! AppDelegate
@@ -157,15 +161,15 @@ UINavigationControllerDelegate {
     
     func keyboardWillShow(notification: NSNotification) {
         if bottomText .isFirstResponder() {
-            self.view.frame.origin.y -= getKeyboardHeight(notification)
-            self.topText.hidden = true
+            view.frame.origin.y -= getKeyboardHeight(notification)
+            topText.hidden = true
         }
     }
     
     func keyboardWillHide(notification: NSNotification) {
         if bottomText .isFirstResponder() {
-            self.view.frame.origin.y += getKeyboardHeight(notification)
-            self.topText.hidden = false
+            view.frame.origin.y = 0
+            topText.hidden = false
         }
     }
     

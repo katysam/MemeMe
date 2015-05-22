@@ -35,24 +35,22 @@ class MemeCollectionViewController: UICollectionViewController, UICollectionView
         // fill the cells with available memes
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("MemeCell", forIndexPath: indexPath) as! MemeCellViewController
         let meme = self.allMemes[indexPath.item]
-        cell.imageView.image = meme.originalImage
-        cell.topText.text = meme.text1
-        cell.bottomText.text = meme.text2
+        cell.imageView.image = meme.memedImage
         
         return cell
     }
     
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath:NSIndexPath) {
         
-        let detailController = self.storyboard!.instantiateViewControllerWithIdentifier("MemeDetail") as! MemeDetailView
-        detailController.meme = self.allMemes?[indexPath.item]
-        self.presentViewController(detailController, animated: true, completion: nil)
-
+        // Get the new ViewController
+        var controller: MemeDetailView
+        controller = self.storyboard!.instantiateViewControllerWithIdentifier("MemeDetail") as! MemeDetailView
         
-//        let memeEditor = self.storyboard!.instantiateViewControllerWithIdentifier("MemeEditor") as! MemeEditor
-//        memeEditor.meme = self.allMemes?[indexPath.item]
-//        self.presentViewController(memeEditor, animated: true, completion: nil)
-
+        // Pass the Meme to the new controller
+        controller.meme = self.allMemes?[indexPath.item]
+        
+        // Present the view Controller
+        self.navigationController!.pushViewController(controller, animated: true)
         
     }
     
